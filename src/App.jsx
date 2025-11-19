@@ -2,6 +2,7 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Projects from './components/Projects'
 import Services from './components/Services'
+import TechStack from './components/TechStack'
 import Footer from './components/Footer'
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Hero />
       <Projects />
       <Services />
+      <TechStack />
       <Footer />
     </div>
   )
