@@ -1,8 +1,16 @@
-function ProjectItem({ title, subtitle, status, tags }) {
+import { motion } from 'framer-motion'
+
+function ProjectItem({ title, subtitle, status, tags, i }) {
   const chip = status === 'ongoing' ? 'bg-amber-500/10 text-amber-300 border-amber-400/20' : 'bg-emerald-500/10 text-emerald-300 border-emerald-400/20'
   const chipText = status === 'ongoing' ? 'Ongoing' : 'Completed'
   return (
-    <div className="rounded-xl border border-slate-700/60 bg-slate-800/40 p-5 hover:border-slate-600 transition-colors">
+    <motion.div 
+      className="rounded-xl border border-slate-700/60 bg-slate-800/40 p-5 hover:border-slate-600 transition-colors"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.45, delay: i * 0.05 }}
+    >
       <div className="flex items-center justify-between gap-3">
         <div>
           <h3 className="text-white font-semibold">{title}</h3>
@@ -15,7 +23,7 @@ function ProjectItem({ title, subtitle, status, tags }) {
           <span key={t} className="text-xs text-slate-300/80 bg-slate-700/40 border border-slate-600/50 px-2 py-0.5 rounded-full">{t}</span>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 
@@ -66,21 +74,35 @@ function Projects() {
     <section id="projects" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
       <div className="grid gap-6">
         <div>
-          <h2 className="text-2xl font-semibold text-white">Current Projects</h2>
+          <motion.h2 
+            className="text-2xl font-semibold text-white"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Current Projects
+          </motion.h2>
           <p className="text-slate-300/80 mt-1">What we're actively crafting</p>
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
-            {ongoing.map((p) => (
-              <ProjectItem key={p.title} {...p} />
+            {ongoing.map((p, i) => (
+              <ProjectItem key={p.title} {...p} i={i} />
             ))}
           </div>
         </div>
 
         <div className="mt-10">
-          <h2 className="text-2xl font-semibold text-white">Completed</h2>
+          <motion.h2 
+            className="text-2xl font-semibold text-white"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Completed
+          </motion.h2>
           <p className="text-slate-300/80 mt-1">Highlights from recent deliveries</p>
           <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {completed.map((p) => (
-              <ProjectItem key={p.title} {...p} />
+            {completed.map((p, i) => (
+              <ProjectItem key={p.title} {...p} i={i} />
             ))}
           </div>
         </div>

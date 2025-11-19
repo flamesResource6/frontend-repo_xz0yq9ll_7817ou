@@ -1,4 +1,6 @@
 import { Menu } from 'lucide-react'
+import { motion } from 'framer-motion'
+import logoUrl from '../assets/codecraft-logo.svg'
 
 function Header() {
   return (
@@ -6,15 +8,42 @@ function Header() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
           <a href="#home" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-gradient-to-tr from-blue-500 to-cyan-400 shadow-lg shadow-blue-500/30" />
-            <span className="text-white font-semibold tracking-tight">Code Craft</span>
+            <motion.img
+              src={logoUrl}
+              alt="Code Craft logo"
+              className="h-8 w-8 rounded-md"
+              initial={{ rotate: -8, scale: 0.9, opacity: 0 }}
+              animate={{ rotate: 0, scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+            />
+            <motion.span
+              className="text-white font-semibold tracking-tight"
+              initial={{ y: -8, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.05 }}
+            >
+              Code Craft
+            </motion.span>
           </a>
 
           <nav className="hidden md:flex items-center gap-8 text-sm">
-            <a href="#projects" className="text-slate-300 hover:text-white transition-colors">Projects</a>
-            <a href="#services" className="text-slate-300 hover:text-white transition-colors">Services</a>
-            <a href="#about" className="text-slate-300 hover:text-white transition-colors">About</a>
-            <a href="#contact" className="text-slate-300 hover:text-white transition-colors">Contact</a>
+            {[
+              { href: '#projects', label: 'Projects' },
+              { href: '#services', label: 'Services' },
+              { href: '#about', label: 'About' },
+              { href: '#contact', label: 'Contact' },
+            ].map((link, idx) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                className="text-slate-300 hover:text-white transition-colors"
+                initial={{ y: -8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.1 + idx * 0.05 }}
+              >
+                {link.label}
+              </motion.a>
+            ))}
           </nav>
 
           <button className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-md border border-slate-700 text-slate-300">
